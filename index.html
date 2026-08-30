@@ -1,12 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Locket Gold</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>Locket Gold Checker</title>
 
 <style>
 *{
@@ -21,149 +20,373 @@ body{
     justify-content:center;
     align-items:center;
     padding:20px;
-    font-family:Arial,sans-serif;
+
+    font-family:Inter,Arial,sans-serif;
     color:#fff;
+
     background:
-        radial-gradient(circle at 50% 0%,#6b531c 0%,transparent 35%),
-        linear-gradient(145deg,#050505,#151515,#050505);
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(255,214,92,.22),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(255,190,60,.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #050505,
+            #111,
+            #050505
+        );
 }
 
 .container{
     width:100%;
-    max-width:500px;
+    max-width:520px;
 }
 
+/* LOGO */
+
 .logo{
-    width:76px;
-    height:76px;
-    margin:auto;
+    width:78px;
+    height:78px;
+    margin:0 auto 20px;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     border-radius:24px;
-    font-size:38px;
-    background:linear-gradient(145deg,#ffe99a,#b9851e);
-    box-shadow:0 0 50px rgba(255,210,70,.25);
+
+    font-size:40px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff1a8,
+            #d8ad39
+        );
+
+    box-shadow:
+        0 0 50px rgba(255,214,80,.22),
+        inset 0 1px rgba(255,255,255,.7);
 }
 
+/* TITLE */
+
 h1{
-    margin-top:20px;
     text-align:center;
     font-size:38px;
+    letter-spacing:-1.5px;
 }
 
 .subtitle{
-    margin:8px 0 30px;
+    margin-top:8px;
+    margin-bottom:30px;
+
     text-align:center;
-    color:#999;
+
+    color:#929292;
+    font-size:14px;
 }
+
+/* CARD */
 
 .card{
-    padding:25px;
-    border-radius:25px;
-    border:1px solid rgba(255,255,255,.1);
-    background:rgba(255,255,255,.055);
-    backdrop-filter:blur(20px);
-    box-shadow:0 25px 70px rgba(0,0,0,.5);
+    padding:26px;
+
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:26px;
+
+    background:rgba(255,255,255,.045);
+
+    backdrop-filter:blur(22px);
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.55),
+        inset 0 1px rgba(255,255,255,.04);
 }
 
-label{
+/* LABEL */
+
+.label{
     display:block;
-    margin-bottom:9px;
+
+    margin-bottom:10px;
+
     color:#aaa;
+
     font-size:13px;
 }
 
-.input{
+/* INPUT */
+
+.input-box{
     display:flex;
     align-items:center;
-    border:1px solid #292929;
-    border-radius:15px;
+
     overflow:hidden;
-    background:#0c0c0c;
+
+    border:1px solid #292929;
+    border-radius:16px;
+
+    background:#0b0b0b;
+
+    transition:.2s;
+}
+
+.input-box:focus-within{
+    border-color:#b99535;
+
+    box-shadow:
+        0 0 0 3px rgba(190,150,45,.08);
 }
 
 .prefix{
     padding-left:15px;
-    color:#777;
+
+    color:#6e6e6e;
+
+    font-size:14px;
+
     white-space:nowrap;
 }
 
 input{
     width:100%;
+
     padding:16px 14px;
+
     border:0;
     outline:0;
+
     background:transparent;
+
     color:#fff;
+
     font-size:16px;
 }
 
+input::placeholder{
+    color:#4f4f4f;
+}
+
+/* BUTTON */
+
 button{
     width:100%;
-    margin-top:16px;
+
+    margin-top:17px;
+
     padding:16px;
+
     border:0;
-    border-radius:15px;
+    border-radius:16px;
+
     cursor:pointer;
-    font-weight:800;
-    color:#17120a;
-    background:linear-gradient(135deg,#fff0a8,#d3a52c);
+
+    color:#18130a;
+
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:.5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0a5,
+            #d3a32d
+        );
+
+    box-shadow:
+        0 12px 30px rgba(210,165,45,.16);
+
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+
+    filter:brightness(1.06);
+}
+
+button:active{
+    transform:translateY(0);
 }
 
 button:disabled{
-    opacity:.5;
+    opacity:.55;
     cursor:not-allowed;
+    transform:none;
 }
+
+/* LOADING */
 
 .loading{
     display:none;
-    text-align:center;
+
     margin-top:18px;
-    color:#aaa;
+
+    text-align:center;
+
+    color:#999;
+
+    font-size:13px;
 }
 
 .loading.show{
     display:block;
 }
 
+.spinner{
+    display:inline-block;
+
+    width:16px;
+    height:16px;
+
+    margin-right:7px;
+
+    vertical-align:-3px;
+
+    border:2px solid #3b3b3b;
+    border-top-color:#e2bd58;
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* RESULT */
+
 .result{
     display:none;
+
     margin-top:18px;
     padding:20px;
-    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:19px;
+
     background:#0b0b0b;
-    border:1px solid #292929;
+
+    animation:resultIn .3s ease;
 }
 
 .result.show{
     display:block;
 }
 
-.result-title{
-    margin-bottom:12px;
-    color:#e7c65b;
-    font-weight:bold;
+@keyframes resultIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
-.result-text{
-    white-space:pre-wrap;
-    word-break:break-word;
-    line-height:1.6;
+.result-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    margin-bottom:15px;
+
+    color:#e6c45d;
+
+    font-size:13px;
+    font-weight:800;
+}
+
+.status-dot{
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:#e6c45d;
+
+    box-shadow:
+        0 0 12px rgba(230,196,93,.7);
+}
+
+.username-result{
+    margin-bottom:13px;
+
+    color:#777;
+
+    font-size:13px;
+}
+
+.username-result strong{
     color:#ddd;
 }
 
-.id{
-    margin-top:14px;
-    color:#666;
+.result-content{
+    padding:15px;
+
+    border-radius:13px;
+
+    background:#111;
+
+    color:#ddd;
+
+    line-height:1.6;
+
+    font-size:14px;
+
+    white-space:pre-wrap;
+}
+
+.request-id{
+    margin-top:13px;
+
+    color:#555;
+
     font-size:11px;
 }
 
+/* FOOTER */
+
 .footer{
-    margin-top:18px;
+    margin-top:19px;
+
     text-align:center;
-    color:#555;
+
+    color:#4e4e4e;
+
     font-size:11px;
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+    h1{
+        font-size:32px;
+    }
+
+    .card{
+        padding:20px;
+    }
+
+    .logo{
+        width:70px;
+        height:70px;
+        font-size:34px;
+    }
 }
 </style>
 </head>
@@ -172,9 +395,13 @@ button:disabled{
 
 <div class="container">
 
-    <div class="logo">✦</div>
+    <div class="logo">
+        ✦
+    </div>
 
-    <h1>Locket Gold</h1>
+    <h1>
+        Locket Gold
+    </h1>
 
     <div class="subtitle">
         Kiểm tra trạng thái tài khoản
@@ -182,39 +409,62 @@ button:disabled{
 
     <div class="card">
 
-        <label>Locket username</label>
+        <label class="label">
+            Locket username
+        </label>
 
-        <div class="input">
-            <span class="prefix">locket.cam/</span>
+        <div class="input-box">
+
+            <span class="prefix">
+                locket.cam/
+            </span>
 
             <input
                 id="username"
+                type="text"
                 placeholder="username"
                 autocomplete="off"
             >
+
         </div>
 
-        <button id="check">
+        <button id="checkBtn">
             KIỂM TRA NGAY
         </button>
 
-        <div class="loading" id="loading">
-            ⏳ Đang gửi yêu cầu...
+        <div
+            class="loading"
+            id="loading"
+        >
+            <span class="spinner"></span>
+            Đang kiểm tra...
         </div>
 
-        <div class="result" id="result">
+        <div
+            class="result"
+            id="result"
+        >
 
-            <div class="result-title">
-                ✦ KẾT QUẢ KIỂM TRA
+            <div class="result-header">
+
+                <span class="status-dot"></span>
+
+                KẾT QUẢ KIỂM TRA
+
             </div>
 
             <div
-                class="result-text"
-                id="resultText"
+                class="username-result"
+                id="usernameResult"
             ></div>
 
             <div
-                class="id"
+                class="result-content"
+                id="resultContent"
+            ></div>
+
+            <div
+                class="request-id"
                 id="requestId"
             ></div>
 
@@ -223,38 +473,18 @@ button:disabled{
     </div>
 
     <div class="footer">
-        Locket Gold Checker
+        Locket Gold Checker • Demo
     </div>
 
 </div>
 
 <script>
 
-/* ==============================
-   SUPABASE
-============================== */
-
-const SUPABASE_URL =
-    "https://YOUR_PROJECT.supabase.co";
-
-const SUPABASE_ANON_KEY =
-    "YOUR_SUPABASE_ANON_KEY";
-
-const sb = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
-
-
-/* ==============================
-   ELEMENTS
-============================== */
-
 const input =
     document.getElementById("username");
 
-const check =
-    document.getElementById("check");
+const checkBtn =
+    document.getElementById("checkBtn");
 
 const loading =
     document.getElementById("loading");
@@ -262,23 +492,38 @@ const loading =
 const result =
     document.getElementById("result");
 
-const resultText =
-    document.getElementById("resultText");
+const usernameResult =
+    document.getElementById("usernameResult");
+
+const resultContent =
+    document.getElementById("resultContent");
 
 const requestId =
     document.getElementById("requestId");
 
 
-/* ==============================
-   CLEAN USERNAME
-============================== */
+/* =========================
+   LẤY USERNAME
+========================= */
 
 function cleanUsername(value){
 
     value = value.trim();
 
+    /*
+        https://locket.cam/abc
+        http://locket.cam/abc
+        locket.cam/abc
+        abc
+    */
+
     value = value.replace(
         /^https?:\/\/(www\.)?locket\.cam\//i,
+        ""
+    );
+
+    value = value.replace(
+        /^www\.locket\.cam\//i,
         ""
     );
 
@@ -293,23 +538,56 @@ function cleanUsername(value){
         .replace(/^\/+/,"")
         .replace(/\/+$/,"");
 
-    return value;
+    return value.trim();
 }
 
 
-/* ==============================
-   CHECK
-============================== */
+/* =========================
+   INPUT TỰ ĐỘNG XỬ LÝ
+========================= */
 
-async function checkLocket(){
+input.addEventListener(
+    "input",
+    () => {
+
+        const value =
+            cleanUsername(input.value);
+
+        /*
+         * Nếu người dùng dán:
+         *
+         * locket.cam/tulol
+         *
+         * thì input sẽ thành:
+         *
+         * tulol
+         */
+
+        if(
+            input.value.includes("locket.cam/")
+        ){
+            input.value = value;
+        }
+
+    }
+);
+
+
+/* =========================
+   KIỂM TRA DEMO
+========================= */
+
+async function checkAccount(){
 
     const username =
         cleanUsername(input.value);
 
     if(!username){
 
-        resultText.textContent =
+        resultContent.textContent =
             "Vui lòng nhập username.";
+
+        usernameResult.textContent = "";
 
         requestId.textContent = "";
 
@@ -321,174 +599,98 @@ async function checkLocket(){
 
     input.value = username;
 
-    check.disabled = true;
+    checkBtn.disabled = true;
 
     loading.classList.add("show");
 
     result.classList.remove("show");
 
 
-    try{
+    /*
+     * Demo loading
+     */
 
-        /*
-         * Tạo request trong Supabase
-         */
-
-        const {
-            data,
-            error
-        } = await sb
-            .from("requests")
-            .insert({
-
-                username: username,
-
-                status: "pending"
-
-            })
-            .select()
-            .single();
-
-
-        if(error){
-
-            throw new Error(
-                error.message
-            );
-
-        }
-
-
-        /*
-         * Gọi Edge Function
-         */
-
-        const {
-            data: functionData,
-            error: functionError
-        } =
-            await sb.functions.invoke(
-                "send-telegram",
-                {
-                    body:{
-                        request_id:data.id,
-                        username:username
-                    }
-                }
-            );
-
-
-        if(functionError){
-
-            throw new Error(
-                functionError.message
-            );
-
-        }
-
-
-        resultText.textContent =
-            "Đã gửi yêu cầu kiểm tra.\n\n" +
-            "Vui lòng chờ bot xử lý.";
-
-        requestId.textContent =
-            "ID: " + data.id;
-
-        result.classList.add("show");
-
-
-        /*
-         * Theo dõi kết quả realtime
-         */
-
-        listenResult(data.id);
-
-
-    }catch(error){
-
-        resultText.textContent =
-            "Không thể gửi yêu cầu.\n" +
-            error.message;
-
-        requestId.textContent = "";
-
-        result.classList.add("show");
-
-    }finally{
-
-        check.disabled = false;
-
-        loading.classList.remove("show");
-
-    }
-
-}
-
-
-/* ==============================
-   REALTIME RESULT
-============================== */
-
-function listenResult(id){
-
-    const channel =
-        sb.channel(
-            "request-" + id
-        );
-
-    channel.on(
-
-        "postgres_changes",
-
-        {
-            event:"UPDATE",
-
-            schema:"public",
-
-            table:"requests",
-
-            filter:"id=eq." + id
-
-        },
-
-        payload => {
-
-            const row =
-                payload.new;
-
-            if(row.status === "done"){
-
-                resultText.textContent =
-                    row.result ||
-                    "Bot không trả về kết quả.";
-
-                result.classList.add("show");
-
-                channel.unsubscribe();
-
-            }
-
-        }
-
+    await new Promise(
+        resolve =>
+            setTimeout(resolve,1800)
     );
 
-    channel.subscribe();
+
+    /*
+     * Tạo ID demo
+     */
+
+    const id =
+        "LK-" +
+        Math.random()
+            .toString(36)
+            .substring(2,8)
+            .toUpperCase();
+
+
+    usernameResult.innerHTML =
+        "Username: <strong>@" +
+        escapeHTML(username) +
+        "</strong>";
+
+
+    resultContent.textContent =
+`Yêu cầu đã được tiếp nhận.
+
+Username: @${username}
+
+Đây là kết quả DEMO.
+Khi kết nối Telegram + Supabase,
+nội dung bot trả lời sẽ được hiển thị
+tại khu vực này.`;
+
+
+    requestId.textContent =
+        "ID yêu cầu: " + id;
+
+
+    result.classList.add("show");
+
+    checkBtn.disabled = false;
+
+    loading.classList.remove("show");
 
 }
 
 
-check.addEventListener(
-    "click",
-    checkLocket
-);
+/* =========================
+   CHỐNG HTML INJECTION
+========================= */
 
+function escapeHTML(text){
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   EVENTS
+========================= */
+
+checkBtn.addEventListener(
+    "click",
+    checkAccount
+);
 
 input.addEventListener(
     "keydown",
     event => {
 
         if(event.key === "Enter"){
-            checkLocket();
+
+            checkAccount();
+
         }
 
     }
@@ -498,3 +700,4 @@ input.addEventListener(
 
 </body>
 </html>
+```
