@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Locket Gold Checker</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -16,56 +23,74 @@
 }
 
 :root{
-    --gold:#e7c45c;
-    --gold2:#fff0a5;
+    --gold:#e6c35c;
+    --gold-light:#fff1a8;
     --bg:#050505;
     --card:rgba(255,255,255,.055);
     --border:rgba(255,255,255,.09);
-    --muted:#888;
 }
 
 body{
-    min-height:100vh;
-    padding:25px 16px;
 
-    font-family:Inter,Arial,sans-serif;
-    color:#fff;
+    min-height:100vh;
+
+    padding:30px 15px;
+
+    color:white;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
 
     background:
+
         radial-gradient(
             circle at 50% -10%,
-            rgba(226,188,71,.20),
+            rgba(225,185,60,.20),
             transparent 35%
         ),
+
         radial-gradient(
             circle at 0% 100%,
-            rgba(226,188,71,.07),
+            rgba(225,185,60,.07),
             transparent 30%
         ),
+
         linear-gradient(
             145deg,
-            #030303,
-            #111,
-            #050505
+            #020202,
+            #101010,
+            #030303
         );
 }
 
 .container{
+
     width:100%;
+
     max-width:560px;
+
     margin:auto;
 }
 
-/* =====================
-   HEADER
-===================== */
+
+/* =========================
+   LOGO
+========================= */
 
 .logo{
+
     width:76px;
     height:76px;
+
     margin:10px auto 18px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -74,179 +99,237 @@ body{
     background:
         linear-gradient(
             145deg,
-            #fff1a5,
-            #c99829
+            #fff2a8,
+            #c99b2d
         );
 
     box-shadow:
-        0 0 50px rgba(230,190,70,.22),
+        0 0 55px rgba(230,190,70,.22),
         inset 0 1px rgba(255,255,255,.7);
 }
 
 .logo svg{
+
     width:40px;
     height:40px;
 }
 
+
+/* =========================
+   TITLE
+========================= */
+
 h1{
+
     text-align:center;
+
     font-size:38px;
+
     letter-spacing:-1.5px;
 }
 
 .subtitle{
-    margin:8px 0 28px;
+
+    margin-top:8px;
+    margin-bottom:28px;
 
     text-align:center;
 
-    color:#8d8d8d;
+    color:#888;
+
     font-size:14px;
 }
 
-/* =====================
+
+/* =========================
    CARD
-===================== */
+========================= */
 
 .card{
+
     padding:25px;
 
-    border:1px solid var(--border);
+    border:
+        1px solid var(--border);
+
     border-radius:27px;
 
-    background:var(--card);
+    background:
+        rgba(255,255,255,.045);
 
-    backdrop-filter:blur(25px);
+    backdrop-filter:
+        blur(25px);
 
     box-shadow:
         0 30px 90px rgba(0,0,0,.55),
         inset 0 1px rgba(255,255,255,.035);
 }
 
+
+/* =========================
+   LABEL
+========================= */
+
 .label{
+
     display:block;
 
     margin-bottom:9px;
 
     color:#aaa;
+
     font-size:13px;
 }
 
-/* =====================
+
+/* =========================
    INPUT
-===================== */
+========================= */
 
 .input-box{
+
     display:flex;
+
     align-items:center;
 
     overflow:hidden;
 
-    border:1px solid #292929;
+    border:
+        1px solid #292929;
+
     border-radius:16px;
 
-    background:#0a0a0a;
+    background:#090909;
 
     transition:.2s;
 }
 
 .input-box:focus-within{
+
     border-color:#b99537;
 
     box-shadow:
-        0 0 0 3px rgba(210,170,60,.08);
+        0 0 0 3px
+        rgba(210,170,60,.08);
 }
 
 .prefix{
+
     padding-left:15px;
 
-    color:#666;
+    color:#626262;
 
     font-size:14px;
+
     white-space:nowrap;
 }
 
 input{
+
     width:100%;
 
     padding:16px 14px;
 
     border:0;
+
     outline:0;
 
-    color:#fff;
+    color:white;
+
     background:transparent;
 
     font-size:16px;
 }
 
 input::placeholder{
-    color:#464646;
+
+    color:#444;
 }
 
-/* =====================
+
+/* =========================
    BUTTON
-===================== */
+========================= */
 
 button{
+
     width:100%;
 
     margin-top:16px;
+
     padding:16px;
 
     border:0;
+
     border-radius:16px;
 
     cursor:pointer;
 
-    color:#161208;
+    color:#171207;
 
     font-weight:900;
+
     font-size:14px;
-    letter-spacing:.4px;
+
+    letter-spacing:.5px;
 
     background:
         linear-gradient(
             135deg,
-            #fff0a2,
+            #fff1a2,
             #d0a32f
         );
 
     box-shadow:
-        0 12px 30px rgba(210,165,45,.17);
+        0 12px 30px
+        rgba(210,165,45,.18);
 
     transition:.2s;
 }
 
 button:hover{
+
     transform:translateY(-2px);
+
     filter:brightness(1.06);
 }
 
 button:active{
+
     transform:scale(.99);
 }
 
 button:disabled{
+
     opacity:.55;
+
     cursor:not-allowed;
+
+    transform:none;
 }
 
-/* =====================
+
+/* =========================
    LOADING
-===================== */
+========================= */
 
 .loading{
+
     display:none;
 
     margin-top:20px;
-    padding:17px;
+
+    padding:18px;
 
     text-align:center;
 
-    border:1px solid rgba(255,255,255,.07);
+    border:
+        1px solid rgba(255,255,255,.07);
+
     border-radius:17px;
 
-    background:rgba(255,255,255,.025);
+    background:
+        rgba(255,255,255,.025);
 
     color:#aaa;
 
@@ -254,24 +337,32 @@ button:disabled{
 }
 
 .loading.show{
+
     display:block;
 }
 
 .loader{
-    width:22px;
-    height:22px;
 
-    margin:0 auto 10px;
+    width:25px;
+    height:25px;
 
-    border:2px solid #333;
-    border-top-color:var(--gold);
+    margin:
+        0 auto 11px;
+
+    border:
+        2px solid #292929;
+
+    border-top-color:
+        var(--gold);
 
     border-radius:50%;
 
-    animation:spin .75s linear infinite;
+    animation:
+        spin .75s linear infinite;
 }
 
 .loading-bar{
+
     width:100%;
     height:3px;
 
@@ -279,36 +370,39 @@ button:disabled{
 
     margin-top:12px;
 
-    border-radius:10px;
+    border-radius:20px;
 
     background:#222;
 }
 
 .loading-bar span{
+
     display:block;
 
     width:35%;
     height:100%;
 
-    border-radius:10px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold),
+            transparent
+        );
 
-    background:linear-gradient(
-        90deg,
-        transparent,
-        var(--gold),
-        transparent
-    );
-
-    animation:bar 1.1s infinite;
+    animation:
+        bar 1.1s infinite;
 }
 
 @keyframes spin{
+
     to{
         transform:rotate(360deg);
     }
 }
 
 @keyframes bar{
+
     from{
         transform:translateX(-120%);
     }
@@ -318,46 +412,63 @@ button:disabled{
     }
 }
 
-/* =====================
+
+/* =========================
    RESULT
-===================== */
+========================= */
 
 .result{
+
     display:none;
 
     margin-top:18px;
+
     padding:20px;
 
-    border:1px solid rgba(255,255,255,.08);
+    border:
+        1px solid rgba(255,255,255,.08);
+
     border-radius:21px;
 
     background:#090909;
 
-    animation:resultIn .35s ease;
+    animation:
+        resultIn .35s ease;
 }
 
 .result.show{
+
     display:block;
 }
 
 @keyframes resultIn{
+
     from{
+
         opacity:0;
-        transform:translateY(10px);
+
+        transform:
+            translateY(10px);
     }
 
     to{
+
         opacity:1;
-        transform:translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
-/* =====================
+
+/* =========================
    PROFILE
-===================== */
+========================= */
 
 .profile{
+
     display:flex;
+
     align-items:center;
 
     gap:14px;
@@ -366,10 +477,12 @@ button:disabled{
 }
 
 .avatar-wrap{
+
     position:relative;
 }
 
 .avatar{
+
     width:68px;
     height:68px;
 
@@ -377,15 +490,20 @@ button:disabled{
 
     object-fit:cover;
 
+    border:
+        2px solid #cba83f;
+
     border-radius:50%;
 
-    border:2px solid #cba83f;
+    background:#151515;
 
     box-shadow:
-        0 0 22px rgba(220,180,60,.18);
+        0 0 22px
+        rgba(220,180,60,.18);
 }
 
 .online{
+
     position:absolute;
 
     right:2px;
@@ -394,7 +512,8 @@ button:disabled{
     width:14px;
     height:14px;
 
-    border:3px solid #090909;
+    border:
+        3px solid #090909;
 
     border-radius:50%;
 
@@ -402,11 +521,14 @@ button:disabled{
 }
 
 .display-name{
+
     font-size:19px;
+
     font-weight:800;
 }
 
 .username{
+
     margin-top:5px;
 
     color:#777;
@@ -414,21 +536,26 @@ button:disabled{
     font-size:13px;
 }
 
-/* =====================
+
+/* =========================
    GOLD BADGE
-===================== */
+========================= */
 
 .gold-badge{
+
     display:flex;
+
     align-items:center;
 
     gap:13px;
 
     padding:15px;
 
-    border-radius:17px;
+    border:
+        1px solid
+        rgba(226,190,80,.16);
 
-    border:1px solid rgba(226,190,80,.16);
+    border-radius:17px;
 
     background:
         linear-gradient(
@@ -439,12 +566,14 @@ button:disabled{
 }
 
 .badge-icon{
+
     width:43px;
     height:43px;
 
     flex-shrink:0;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -458,60 +587,116 @@ button:disabled{
         );
 
     box-shadow:
-        0 0 20px rgba(220,180,60,.18);
+        0 0 20px
+        rgba(220,180,60,.18);
 }
 
 .badge-icon svg{
+
     width:24px;
     height:24px;
 }
 
 .badge-title{
+
     color:#c3a13e;
 
     font-size:10px;
+
     font-weight:900;
 
     letter-spacing:1.2px;
 }
 
 .badge-status{
+
     margin-top:4px;
 
     color:#f3da84;
 
     font-size:14px;
+
     font-weight:800;
 }
 
-/* =====================
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+
+    margin-top:14px;
+
+    padding:13px;
+
+    border:
+        1px solid
+        rgba(255,80,80,.15);
+
+    border-radius:14px;
+
+    color:#ff8585;
+
+    background:
+        rgba(255,50,50,.05);
+
+    font-size:12px;
+
+    line-height:1.5;
+}
+
+
+/* =========================
+   REQUEST ID
+========================= */
+
+.request-id{
+
+    margin-top:14px;
+
+    color:#4f4f4f;
+
+    font-size:10px;
+}
+
+
+/* =========================
    HISTORY
-===================== */
+========================= */
 
 .history{
+
     margin-top:22px;
 }
 
 .history-title{
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
+
+    justify-content:space-between;
 
     margin-bottom:12px;
 
     color:#aaa;
 
     font-size:13px;
+
     font-weight:700;
 }
 
 .clear{
+
     width:auto;
 
     margin:0;
-    padding:5px 9px;
 
-    border:1px solid #292929;
+    padding:6px 9px;
+
+    border:
+        1px solid #292929;
 
     color:#777;
 
@@ -523,53 +708,69 @@ button:disabled{
 }
 
 .history-list{
+
     display:flex;
+
     flex-direction:column;
 
     gap:8px;
 }
 
 .history-item{
+
     display:flex;
+
     align-items:center;
 
     gap:11px;
 
     padding:11px;
 
-    border:1px solid rgba(255,255,255,.05);
+    border:
+        1px solid
+        rgba(255,255,255,.05);
+
     border-radius:13px;
 
     background:#0d0d0d;
 }
 
 .history-avatar{
+
     width:38px;
     height:38px;
 
+    object-fit:cover;
+
     border-radius:50%;
 
-    object-fit:cover;
+    background:#181818;
 }
 
 .history-info{
+
     min-width:0;
+
     flex:1;
 }
 
 .history-name{
+
     overflow:hidden;
 
     color:#ddd;
 
     font-size:12px;
+
     font-weight:700;
 
     white-space:nowrap;
+
     text-overflow:ellipsis;
 }
 
 .history-user{
+
     margin-top:3px;
 
     color:#666;
@@ -578,62 +779,61 @@ button:disabled{
 }
 
 .history-gold{
+
     color:#dabb58;
 
     font-size:10px;
+
     font-weight:800;
 }
 
 .empty{
+
     padding:16px;
 
     text-align:center;
 
     color:#555;
 
-    border:1px dashed #242424;
+    border:
+        1px dashed #242424;
+
     border-radius:14px;
 
     font-size:11px;
 }
 
-/* =====================
-   REQUEST ID
-===================== */
 
-.request-id{
-    margin-top:14px;
-
-    color:#505050;
-
-    font-size:10px;
-}
-
-/* =====================
+/* =========================
    FOOTER
-===================== */
+========================= */
 
 .footer{
+
     margin-top:20px;
 
     text-align:center;
 
-    color:#4b4b4b;
+    color:#464646;
 
     font-size:10px;
 }
 
-/* =====================
+
+/* =========================
    MOBILE
-===================== */
+========================= */
 
 @media(max-width:520px){
 
     body{
-        padding:18px 12px;
+
+        padding:
+            18px 12px;
     }
 
     .logo{
+
         width:68px;
         height:68px;
 
@@ -641,66 +841,82 @@ button:disabled{
     }
 
     h1{
+
         font-size:32px;
     }
 
     .subtitle{
+
         margin-bottom:22px;
     }
 
     .card{
+
         padding:18px;
 
         border-radius:22px;
     }
 
     .prefix{
+
         padding-left:12px;
 
         font-size:12px;
     }
 
     input{
-        padding:15px 10px;
+
+        padding:
+            15px 10px;
 
         font-size:15px;
     }
 
     .avatar{
+
         width:60px;
         height:60px;
     }
 
     .display-name{
+
         font-size:17px;
     }
 }
+
 </style>
+
 </head>
+
 
 <body>
 
 <div class="container">
 
+
     <!-- LOGO -->
 
     <div class="logo">
 
-        <svg viewBox="0 0 100 100"
-             fill="none"
-             xmlns="http://www.w3.org/2000/svg">
+        <svg
+            viewBox="0 0 100 100"
+            fill="none"
+        >
 
             <path
-                d="M50 5
-                   L60 38
-                   L95 50
-                   L60 62
-                   L50 95
-                   L40 62
-                   L5 50
-                   L40 38
-                   Z"
-                fill="#17120A"/>
+                d="
+                    M50 5
+                    L60 38
+                    L95 50
+                    L60 62
+                    L50 95
+                    L40 62
+                    L5 50
+                    L40 38
+                    Z
+                "
+                fill="#17120A"
+            />
 
         </svg>
 
@@ -711,18 +927,21 @@ button:disabled{
         Locket Gold
     </h1>
 
+
     <div class="subtitle">
-        Kiểm tra trạng thái tài khoản
+        Kiểm tra thông tin profile
     </div>
 
 
-    <!-- MAIN CARD -->
-
     <div class="card">
+
+
+        <!-- INPUT -->
 
         <label class="label">
             Locket username
         </label>
+
 
         <div class="input-box">
 
@@ -740,7 +959,9 @@ button:disabled{
         </div>
 
 
-        <button id="checkBtn">
+        <button
+            id="checkBtn"
+        >
             KIỂM TRA NGAY
         </button>
 
@@ -755,7 +976,7 @@ button:disabled{
             <div class="loader"></div>
 
             <div>
-                Đang kiểm tra tài khoản...
+                Đang kiểm tra profile...
             </div>
 
             <div class="loading-bar">
@@ -765,6 +986,15 @@ button:disabled{
         </div>
 
 
+        <!-- ERROR -->
+
+        <div
+            class="error"
+            id="error"
+            style="display:none"
+        ></div>
+
+
         <!-- RESULT -->
 
         <div
@@ -772,20 +1002,21 @@ button:disabled{
             id="result"
         >
 
-            <!-- PROFILE -->
 
             <div class="profile">
+
 
                 <div class="avatar-wrap">
 
                     <img
                         id="avatar"
                         class="avatar"
-                        src=""
                         alt="Avatar"
                     >
 
-                    <span class="online"></span>
+                    <span
+                        class="online"
+                    ></span>
 
                 </div>
 
@@ -820,19 +1051,20 @@ button:disabled{
                     <svg
                         viewBox="0 0 24 24"
                         fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
                     >
 
                         <path
-                            d="M12 2
-                               L14.7 9.3
-                               L22 12
-                               L14.7 14.7
-                               L12 22
-                               L9.3 14.7
-                               L2 12
-                               L9.3 9.3
-                               Z"
+                            d="
+                                M12 2
+                                L14.7 9.3
+                                L22 12
+                                L14.7 14.7
+                                L12 22
+                                L9.3 14.7
+                                L2 12
+                                L9.3 9.3
+                                Z
+                            "
                             fill="#17120A"
                         />
 
@@ -851,7 +1083,7 @@ button:disabled{
                         class="badge-status"
                         id="goldStatus"
                     >
-                        ĐÃ LÊN GOLD ✓
+                        CHƯA KIỂM TRA
                     </div>
 
                 </div>
@@ -912,108 +1144,132 @@ button:disabled{
 
 <script>
 
-/* ==================================================
+/* ============================================
    SUPABASE
-================================================== */
+============================================ */
 
-/*
- * Điền thông tin Supabase của bạn khi muốn
- * lưu request/kết quả lên Supabase.
- *
- * Nếu để trống, web vẫn chạy và dùng localStorage.
- */
+const SUPABASE_URL =
+    "https://eczhimfkxmdvvunftxtz.supabase.co";
 
-const SUPABASE_URL = "https://eczhimfkxmdvvunftxtz.supabase.co";
+const SUPABASE_ANON_KEY =
+    "sb_publishable_syLke_RRmyKNfh_p61umwg_8gZzM3So";
 
-const SUPABASE_ANON_KEY = "sb_publishable_syLke_RRmyKNfh_p61umwg_8gZzM3So";
 
-let sb = null;
-
-if(
-    SUPABASE_URL &&
-    SUPABASE_ANON_KEY
-){
-    sb = window.supabase.createClient(
+const sb =
+    window.supabase.createClient(
         SUPABASE_URL,
         SUPABASE_ANON_KEY
     );
-}
 
 
-/* ==================================================
+/* ============================================
    ELEMENTS
-================================================== */
+============================================ */
 
 const input =
-    document.getElementById("username");
+    document.getElementById(
+        "username"
+    );
 
 const checkBtn =
-    document.getElementById("checkBtn");
+    document.getElementById(
+        "checkBtn"
+    );
 
 const loading =
-    document.getElementById("loading");
+    document.getElementById(
+        "loading"
+    );
 
 const result =
-    document.getElementById("result");
+    document.getElementById(
+        "result"
+    );
+
+const errorBox =
+    document.getElementById(
+        "error"
+    );
 
 const avatar =
-    document.getElementById("avatar");
+    document.getElementById(
+        "avatar"
+    );
 
 const displayName =
-    document.getElementById("displayName");
+    document.getElementById(
+        "displayName"
+    );
 
 const usernameResult =
-    document.getElementById("usernameResult");
+    document.getElementById(
+        "usernameResult"
+    );
 
 const goldStatus =
-    document.getElementById("goldStatus");
+    document.getElementById(
+        "goldStatus"
+    );
 
 const requestId =
-    document.getElementById("requestId");
+    document.getElementById(
+        "requestId"
+    );
 
 const historyList =
-    document.getElementById("historyList");
+    document.getElementById(
+        "historyList"
+    );
 
 const clearHistory =
-    document.getElementById("clearHistory");
+    document.getElementById(
+        "clearHistory"
+    );
 
 
-/* ==================================================
-   CLEAN USERNAME
-================================================== */
+/* ============================================
+   USERNAME CLEAN
+============================================ */
 
 function cleanUsername(value){
 
-    value = String(value || "").trim();
+    let username =
+        String(value || "")
+        .trim();
 
-    value = value.replace(
-        /^https?:\/\/(www\.)?locket\.cam\//i,
-        ""
-    );
+    username =
+        username.replace(
+            /^https?:\/\/(www\.)?locket\.cam\//i,
+            ""
+        );
 
-    value = value.replace(
-        /^www\.locket\.cam\//i,
-        ""
-    );
+    username =
+        username.replace(
+            /^www\.locket\.cam\//i,
+            ""
+        );
 
-    value = value.replace(
-        /^locket\.cam\//i,
-        ""
-    );
+    username =
+        username.replace(
+            /^locket\.cam\//i,
+            ""
+        );
 
-    value = value.split(/[?#]/)[0];
+    username =
+        username.split(/[?#]/)[0];
 
-    value = value
+    username =
+        username
         .replace(/^\/+/,"")
         .replace(/\/+$/,"");
 
-    return value.trim();
+    return username.trim();
 }
 
 
-/* ==================================================
-   ESCAPE
-================================================== */
+/* ============================================
+   ESCAPE HTML
+============================================ */
 
 function escapeHTML(text){
 
@@ -1026,298 +1282,417 @@ function escapeHTML(text){
 }
 
 
-/* ==================================================
+/* ============================================
    REQUEST ID
-================================================== */
+============================================ */
 
 function createRequestId(){
 
     return "LK-" +
         Math.random()
-            .toString(36)
-            .substring(2,8)
-            .toUpperCase();
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
 }
 
 
-/* ==================================================
-   LOCAL HISTORY
-================================================== */
+/* ============================================
+   FALLBACK AVATAR
+============================================ */
 
-function getHistory(){
+function avatarFallback(username){
 
-    try{
+    return (
+        "https://ui-avatars.com/api/" +
+        "?name=" +
+        encodeURIComponent(
+            username.substring(0,2)
+        ) +
+        "&background=161616" +
+        "&color=e7c45c" +
+        "&size=200"
+    );
+}
 
-        return JSON.parse(
-            localStorage.getItem(
-                "locket_gold_history"
-            )
-        ) || [];
 
-    }catch{
+/* ============================================
+   GET PROFILE
+============================================ */
 
-        return [];
+async function getLocketProfile(username){
+
+    const response =
+        await sb.functions.invoke(
+            "locket-profile",
+            {
+                body:{
+                    username:username
+                }
+            }
+        );
+
+    if(response.error){
+
+        throw new Error(
+            response.error.message ||
+            "Không thể gọi Edge Function."
+        );
+    }
+
+    const data =
+        response.data;
+
+    if(!data){
+
+        throw new Error(
+            "Supabase không trả dữ liệu."
+        );
+    }
+
+    if(!data.success){
+
+        throw new Error(
+            data.error ||
+            "Không lấy được profile."
+        );
+    }
+
+    return data;
+}
+
+
+/* ============================================
+   SAVE SUPABASE
+============================================ */
+
+async function saveRequest(profile){
+
+    const id =
+        createRequestId();
+
+    const { error } =
+        await sb
+        .from("requests")
+        .insert({
+
+            username:
+                profile.username,
+
+            display_name:
+                profile.display_name,
+
+            avatar_url:
+                profile.avatar_url,
+
+            gold_status:
+                null,
+
+            status:
+                "completed",
+
+            result:
+                "Đã lấy thông tin profile"
+
+        });
+
+    if(error){
+
+        console.error(
+            "Supabase insert:",
+            error
+        );
 
     }
+
+    return id;
 }
 
 
-function saveHistory(item){
+/* ============================================
+   LOAD HISTORY
+============================================ */
 
-    const history =
-        getHistory();
+async function loadHistory(){
 
-    /*
-     * Đưa kết quả mới lên đầu
-     */
+    const { data, error } =
+        await sb
+        .from("requests")
+        .select(
+            "username,display_name,avatar_url,gold_status,created_at"
+        )
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        )
+        .limit(10);
 
-    history.unshift(item);
+    if(error){
 
-    /*
-     * Giữ tối đa 10 lần
-     */
+        console.error(
+            "History:",
+            error
+        );
 
-    const limited =
-        history.slice(0,10);
+        return;
+    }
 
-    localStorage.setItem(
-        "locket_gold_history",
-        JSON.stringify(limited)
+    renderHistory(
+        data || []
     );
-
-    renderHistory();
 }
 
 
-function renderHistory(){
+/* ============================================
+   RENDER HISTORY
+============================================ */
 
-    const history =
-        getHistory();
+function renderHistory(items){
 
-    if(!history.length){
+    if(!items.length){
 
         historyList.innerHTML =
-            `<div class="empty">
+            `
+            <div class="empty">
                 Chưa có lịch sử kiểm tra
-            </div>`;
+            </div>
+            `;
 
         return;
     }
 
 
     historyList.innerHTML =
-        history.map(item => `
+        items.map(item => {
 
-            <div class="history-item">
+            const image =
+                item.avatar_url ||
+                avatarFallback(
+                    item.username
+                );
 
-                <img
-                    class="history-avatar"
-                    src="${escapeHTML(item.avatar)}"
-                    alt=""
-                >
+            const gold =
+                item.gold_status === true
+                    ? "GOLD ✓"
+                    : item.gold_status === false
+                        ? "NO GOLD"
+                        : "CHECKED";
 
-                <div class="history-info">
+            return `
+                <div class="history-item">
 
-                    <div class="history-name">
-                        ${escapeHTML(item.name)}
+                    <img
+                        class="history-avatar"
+                        src="${escapeHTML(image)}"
+                        onerror="this.src='${avatarFallback(item.username)}'"
+                    >
+
+                    <div class="history-info">
+
+                        <div class="history-name">
+                            ${escapeHTML(
+                                item.display_name ||
+                                item.username
+                            )}
+                        </div>
+
+                        <div class="history-user">
+                            @${escapeHTML(
+                                item.username
+                            )}
+                        </div>
+
                     </div>
 
-                    <div class="history-user">
-                        @${escapeHTML(item.username)}
+                    <div class="history-gold">
+                        ${gold}
                     </div>
 
                 </div>
+            `;
 
-                <div class="history-gold">
-                    ${item.gold ? "GOLD ✓" : "NO GOLD"}
-                </div>
-
-            </div>
-
-        `).join("");
+        }).join("");
 }
 
 
-/* ==================================================
-   SUPABASE SAVE
-================================================== */
-
-async function saveToSupabase(item){
-
-    if(!sb) return;
-
-    try{
-
-        await sb
-            .from("requests")
-            .insert({
-
-                username:item.username,
-
-                display_name:item.name,
-
-                avatar_url:item.avatar,
-
-                gold_status:item.gold,
-
-                status:"done",
-
-                result:
-                    item.gold
-                        ? "Đã lên Locket Gold"
-                        : "Chưa lên Locket Gold"
-
-            });
-
-    }catch(error){
-
-        console.error(
-            "Supabase error:",
-            error
-        );
-
-    }
-}
-
-
-/* ==================================================
-   DEMO CHECK
-================================================== */
+/* ============================================
+   CHECK
+============================================ */
 
 async function checkAccount(){
 
     const username =
-        cleanUsername(input.value);
+        cleanUsername(
+            input.value
+        );
 
 
     if(!username){
 
-        result.classList.add("show");
-
-        displayName.textContent =
-            "Chưa nhập username";
-
-        usernameResult.textContent =
-            "";
-
-        goldStatus.textContent =
-            "Vui lòng nhập username";
+        showError(
+            "Vui lòng nhập username."
+        );
 
         return;
     }
 
 
-    input.value = username;
+    if(
+        !/^[a-zA-Z0-9._-]{1,100}$/
+        .test(username)
+    ){
 
-    checkBtn.disabled = true;
+        showError(
+            "Username không hợp lệ."
+        );
 
-    result.classList.remove("show");
+        return;
+    }
 
-    loading.classList.add("show");
+
+    input.value =
+        username;
 
 
-    /*
-     * Loading demo
-     */
+    checkBtn.disabled =
+        true;
 
-    await new Promise(
-        resolve =>
-            setTimeout(
-                resolve,
-                1800
-            )
+    loading.classList.add(
+        "show"
     );
 
+    result.classList.remove(
+        "show"
+    );
 
-    /*
-     * =============================================
-     * DỮ LIỆU DEMO
-     * =============================================
-     *
-     * Sau này thay phần này bằng dữ liệu thật.
-     */
-
-    const name =
-        username.toLowerCase() === "tudzpromax"
-            ? "Tú Pro Max"
-            : username;
+    errorBox.style.display =
+        "none";
 
 
-    const avatarURL =
-        "https://i.pravatar.cc/300?u=" +
-        encodeURIComponent(username);
+    try{
+
+        const profile =
+            await getLocketProfile(
+                username
+            );
 
 
-    const isGold = true;
+        /* =========================
+           PROFILE
+        ========================= */
+
+        displayName.textContent =
+            profile.display_name ||
+            profile.username;
 
 
-    const id =
-        createRequestId();
+        usernameResult.textContent =
+            "@" +
+            profile.username;
 
 
-    /*
-     * HIỂN THỊ
-     */
-
-    avatar.src =
-        avatarURL;
-
-    displayName.textContent =
-        name;
-
-    usernameResult.textContent =
-        "@" + username;
-
-    goldStatus.textContent =
-        isGold
-            ? "ĐÃ LÊN GOLD ✓"
-            : "CHƯA LÊN GOLD";
+        const image =
+            profile.avatar_url ||
+            avatarFallback(
+                profile.username
+            );
 
 
-    requestId.textContent =
-        "ID yêu cầu: " + id;
+        avatar.src =
+            image;
 
 
-    result.classList.add("show");
+        avatar.onerror =
+            () => {
+
+                avatar.src =
+                    avatarFallback(
+                        profile.username
+                    );
+
+            };
 
 
-    /*
-     * LƯU HISTORY
-     */
+        /* =========================
+           GOLD
+        ========================= */
 
-    const item = {
+        /*
+         * Chưa có nguồn dữ liệu Gold
+         * nên không giả mạo kết quả.
+         */
 
-        id:id,
-
-        username:username,
-
-        name:name,
-
-        avatar:avatarURL,
-
-        gold:isGold,
-
-        time:
-            new Date().toISOString()
-
-    };
+        goldStatus.textContent =
+            "CHƯA CÓ DỮ LIỆU";
 
 
-    saveHistory(item);
+        /* =========================
+           SAVE
+        ========================= */
 
-    await saveToSupabase(item);
+        const id =
+            await saveRequest(
+                profile
+            );
 
 
-    checkBtn.disabled = false;
+        requestId.textContent =
+            "ID yêu cầu: " +
+            id;
 
-    loading.classList.remove("show");
 
+        result.classList.add(
+            "show"
+        );
+
+
+        await loadHistory();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showError(
+            error.message ||
+            "Có lỗi xảy ra."
+        );
+
+    }finally{
+
+        loading.classList.remove(
+            "show"
+        );
+
+        checkBtn.disabled =
+            false;
+
+    }
 }
 
 
-/* ==================================================
+/* ============================================
+   ERROR
+============================================ */
+
+function showError(message){
+
+    result.classList.remove(
+        "show"
+    );
+
+    errorBox.textContent =
+        message;
+
+    errorBox.style.display =
+        "block";
+}
+
+
+/* ============================================
    EVENTS
-================================================== */
+============================================ */
 
 checkBtn.addEventListener(
     "click",
@@ -1329,7 +1704,9 @@ input.addEventListener(
     "keydown",
     event => {
 
-        if(event.key === "Enter"){
+        if(
+            event.key === "Enter"
+        ){
 
             checkAccount();
 
@@ -1339,24 +1716,6 @@ input.addEventListener(
 );
 
 
-clearHistory.addEventListener(
-    "click",
-    () => {
-
-        localStorage.removeItem(
-            "locket_gold_history"
-        );
-
-        renderHistory();
-
-    }
-);
-
-
-/* ==================================================
-   INPUT AUTO CLEAN
-================================================== */
-
 input.addEventListener(
     "input",
     () => {
@@ -1365,11 +1724,15 @@ input.addEventListener(
             input.value;
 
         if(
-            /locket\.cam\//i.test(value)
+            /locket\.cam\//i.test(
+                value
+            )
         ){
 
             input.value =
-                cleanUsername(value);
+                cleanUsername(
+                    value
+                );
 
         }
 
@@ -1377,13 +1740,58 @@ input.addEventListener(
 );
 
 
-/* ==================================================
-   INIT
-================================================== */
+/* ============================================
+   CLEAR HISTORY
+============================================ */
 
-renderHistory();
+clearHistory.addEventListener(
+    "click",
+    async () => {
+
+        const confirmed =
+            confirm(
+                "Xóa toàn bộ lịch sử?"
+            );
+
+        if(!confirmed) return;
+
+
+        const { error } =
+            await sb
+            .from("requests")
+            .delete()
+            .not(
+                "id",
+                "is",
+                null
+            );
+
+
+        if(error){
+
+            console.error(error);
+
+            alert(
+                "Không thể xóa lịch sử."
+            );
+
+            return;
+        }
+
+
+        renderHistory([]);
+    }
+);
+
+
+/* ============================================
+   START
+============================================ */
+
+loadHistory();
 
 </script>
 
 </body>
+
 </html>
