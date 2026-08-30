@@ -1,0 +1,502 @@
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Locket Gold</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    font-family:Arial,sans-serif;
+    color:#fff;
+    background:
+        radial-gradient(circle at 50% 0%,#6b531c 0%,transparent 35%),
+        linear-gradient(145deg,#050505,#151515,#050505);
+}
+
+.container{
+    width:100%;
+    max-width:500px;
+}
+
+.logo{
+    width:76px;
+    height:76px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:24px;
+    font-size:38px;
+    background:linear-gradient(145deg,#ffe99a,#b9851e);
+    box-shadow:0 0 50px rgba(255,210,70,.25);
+}
+
+h1{
+    margin-top:20px;
+    text-align:center;
+    font-size:38px;
+}
+
+.subtitle{
+    margin:8px 0 30px;
+    text-align:center;
+    color:#999;
+}
+
+.card{
+    padding:25px;
+    border-radius:25px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.055);
+    backdrop-filter:blur(20px);
+    box-shadow:0 25px 70px rgba(0,0,0,.5);
+}
+
+label{
+    display:block;
+    margin-bottom:9px;
+    color:#aaa;
+    font-size:13px;
+}
+
+.input{
+    display:flex;
+    align-items:center;
+    border:1px solid #292929;
+    border-radius:15px;
+    overflow:hidden;
+    background:#0c0c0c;
+}
+
+.prefix{
+    padding-left:15px;
+    color:#777;
+    white-space:nowrap;
+}
+
+input{
+    width:100%;
+    padding:16px 14px;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:#fff;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    margin-top:16px;
+    padding:16px;
+    border:0;
+    border-radius:15px;
+    cursor:pointer;
+    font-weight:800;
+    color:#17120a;
+    background:linear-gradient(135deg,#fff0a8,#d3a52c);
+}
+
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.loading{
+    display:none;
+    text-align:center;
+    margin-top:18px;
+    color:#aaa;
+}
+
+.loading.show{
+    display:block;
+}
+
+.result{
+    display:none;
+    margin-top:18px;
+    padding:20px;
+    border-radius:18px;
+    background:#0b0b0b;
+    border:1px solid #292929;
+}
+
+.result.show{
+    display:block;
+}
+
+.result-title{
+    margin-bottom:12px;
+    color:#e7c65b;
+    font-weight:bold;
+}
+
+.result-text{
+    white-space:pre-wrap;
+    word-break:break-word;
+    line-height:1.6;
+    color:#ddd;
+}
+
+.id{
+    margin-top:14px;
+    color:#666;
+    font-size:11px;
+}
+
+.footer{
+    margin-top:18px;
+    text-align:center;
+    color:#555;
+    font-size:11px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">✦</div>
+
+    <h1>Locket Gold</h1>
+
+    <div class="subtitle">
+        Kiểm tra trạng thái tài khoản
+    </div>
+
+    <div class="card">
+
+        <label>Locket username</label>
+
+        <div class="input">
+            <span class="prefix">locket.cam/</span>
+
+            <input
+                id="username"
+                placeholder="username"
+                autocomplete="off"
+            >
+        </div>
+
+        <button id="check">
+            KIỂM TRA NGAY
+        </button>
+
+        <div class="loading" id="loading">
+            ⏳ Đang gửi yêu cầu...
+        </div>
+
+        <div class="result" id="result">
+
+            <div class="result-title">
+                ✦ KẾT QUẢ KIỂM TRA
+            </div>
+
+            <div
+                class="result-text"
+                id="resultText"
+            ></div>
+
+            <div
+                class="id"
+                id="requestId"
+            ></div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Locket Gold Checker
+    </div>
+
+</div>
+
+<script>
+
+/* ==============================
+   SUPABASE
+============================== */
+
+const SUPABASE_URL =
+    "https://YOUR_PROJECT.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "YOUR_SUPABASE_ANON_KEY";
+
+const sb = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+
+/* ==============================
+   ELEMENTS
+============================== */
+
+const input =
+    document.getElementById("username");
+
+const check =
+    document.getElementById("check");
+
+const loading =
+    document.getElementById("loading");
+
+const result =
+    document.getElementById("result");
+
+const resultText =
+    document.getElementById("resultText");
+
+const requestId =
+    document.getElementById("requestId");
+
+
+/* ==============================
+   CLEAN USERNAME
+============================== */
+
+function cleanUsername(value){
+
+    value = value.trim();
+
+    value = value.replace(
+        /^https?:\/\/(www\.)?locket\.cam\//i,
+        ""
+    );
+
+    value = value.replace(
+        /^locket\.cam\//i,
+        ""
+    );
+
+    value = value.split(/[?#]/)[0];
+
+    value = value
+        .replace(/^\/+/,"")
+        .replace(/\/+$/,"");
+
+    return value;
+}
+
+
+/* ==============================
+   CHECK
+============================== */
+
+async function checkLocket(){
+
+    const username =
+        cleanUsername(input.value);
+
+    if(!username){
+
+        resultText.textContent =
+            "Vui lòng nhập username.";
+
+        requestId.textContent = "";
+
+        result.classList.add("show");
+
+        return;
+    }
+
+
+    input.value = username;
+
+    check.disabled = true;
+
+    loading.classList.add("show");
+
+    result.classList.remove("show");
+
+
+    try{
+
+        /*
+         * Tạo request trong Supabase
+         */
+
+        const {
+            data,
+            error
+        } = await sb
+            .from("requests")
+            .insert({
+
+                username: username,
+
+                status: "pending"
+
+            })
+            .select()
+            .single();
+
+
+        if(error){
+
+            throw new Error(
+                error.message
+            );
+
+        }
+
+
+        /*
+         * Gọi Edge Function
+         */
+
+        const {
+            data: functionData,
+            error: functionError
+        } =
+            await sb.functions.invoke(
+                "send-telegram",
+                {
+                    body:{
+                        request_id:data.id,
+                        username:username
+                    }
+                }
+            );
+
+
+        if(functionError){
+
+            throw new Error(
+                functionError.message
+            );
+
+        }
+
+
+        resultText.textContent =
+            "Đã gửi yêu cầu kiểm tra.\n\n" +
+            "Vui lòng chờ bot xử lý.";
+
+        requestId.textContent =
+            "ID: " + data.id;
+
+        result.classList.add("show");
+
+
+        /*
+         * Theo dõi kết quả realtime
+         */
+
+        listenResult(data.id);
+
+
+    }catch(error){
+
+        resultText.textContent =
+            "Không thể gửi yêu cầu.\n" +
+            error.message;
+
+        requestId.textContent = "";
+
+        result.classList.add("show");
+
+    }finally{
+
+        check.disabled = false;
+
+        loading.classList.remove("show");
+
+    }
+
+}
+
+
+/* ==============================
+   REALTIME RESULT
+============================== */
+
+function listenResult(id){
+
+    const channel =
+        sb.channel(
+            "request-" + id
+        );
+
+    channel.on(
+
+        "postgres_changes",
+
+        {
+            event:"UPDATE",
+
+            schema:"public",
+
+            table:"requests",
+
+            filter:"id=eq." + id
+
+        },
+
+        payload => {
+
+            const row =
+                payload.new;
+
+            if(row.status === "done"){
+
+                resultText.textContent =
+                    row.result ||
+                    "Bot không trả về kết quả.";
+
+                result.classList.add("show");
+
+                channel.unsubscribe();
+
+            }
+
+        }
+
+    );
+
+    channel.subscribe();
+
+}
+
+
+check.addEventListener(
+    "click",
+    checkLocket
+);
+
+
+input.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Enter"){
+            checkLocket();
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
